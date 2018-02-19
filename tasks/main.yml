@@ -3,7 +3,7 @@
   become: True
   lineinfile:
     dest: /etc/hosts
-    regexp: ".*{{ item }}$"
+    regexp: "^{{ item.ipaddress }}.*"
     line: "{{ '%-15s' | format(item.ipaddress) }} {{ item.hostname }}"
     state: present
   with_items: "{{ etc_hosts }}"
