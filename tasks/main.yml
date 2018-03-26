@@ -1,4 +1,13 @@
 ---
+- name: Delete previous entries
+  become: True
+  lineinfile:
+    dest: /etc/hosts
+    regexp: "^{{ item.ipaddress }}.*"
+    state: absent
+  with_items: "{{ etc_hosts }}"
+  when: etc_hosts is defined
+
 - name: Set /etc/hosts
   become: True
   lineinfile:
